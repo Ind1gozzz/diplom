@@ -30,10 +30,10 @@ const Shop = observer( () => {
     return (
         <Container className="mt-2">
             <Row>
-                <Col md={3}>
+                <Col md={2}>
                     <TypeBar />
                 </Col>
-                <Col md={9}>
+                <Col md={10}>
                     <BrandBar />
                     <DeviceList />
                     <Pages />

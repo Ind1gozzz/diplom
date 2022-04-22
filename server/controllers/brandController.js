@@ -15,6 +15,15 @@ class BrandController
         const brands = await Brand.findAll();
         return res.json(brands);
     }
+
+    async getOne(req, res)
+    {
+        const {id} = req.params
+        const brand = await Brand.findOne({
+            attributes: ['name'],
+            where: {id}});
+        return res.json(brand);
+    }
 }
 
 module.exports = new BrandController();

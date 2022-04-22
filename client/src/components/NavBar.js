@@ -1,9 +1,9 @@
-import React, { useContext } from "react";
+ import React, { useContext } from "react";
 import { Context } from "../index";
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav"
 import { NavLink } from "react-router-dom";
-import { ADMIN_ROUTE, SHOP_ROUTE, LOGIN_ROUTE} from "../utils/const";
+import { ADMIN_ROUTE, SHOP_ROUTE, LOGIN_ROUTE, BASKET_ROUTE} from "../utils/const";
 import {Button} from 'react-bootstrap';
 import { observer } from "mobx-react-lite";
 import { useHistory } from "react-router-dom";
@@ -50,7 +50,15 @@ const NavBar = observer(() => {
                 >
                     Sing in
                 </Button>
+                <Button
+                    variant="dark"
+                    onClick={() => history.push(BASKET_ROUTE)}
+                    className="ml-4px" style={{paddingLeft: "10px", marginRight:""}}
+                >
+                    Basket
+                </Button>
             </Nav>
+            
             }
         </Navbar>
     );

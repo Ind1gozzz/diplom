@@ -64,4 +64,8 @@ export default class DeviceStore {
     get limit() {
         return this._limit
     }
+
+    get selectedBrandName() {
+        return this._selectedBrand.name
+    }
 }
