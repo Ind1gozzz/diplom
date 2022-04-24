@@ -6,7 +6,7 @@ export default class DeviceStore {
         this._brands = []
         this._devices = []
         this._selectedType = {}
-        this._selectedBrand = {}
+        this._selectedBrand = []
         this._page = 1
         this._totalCount = 0
         this._limit = 5
@@ -28,7 +28,8 @@ export default class DeviceStore {
     }
     setSelectedBrand(brand) {
         this.setPage(1)
-        this._selectedBrand = brand
+        this._selectedBrand.push(brand)
+        console.log(this.selectedBrand.id);
     }
     setPage(page) {
         this._page = page
@@ -63,9 +64,5 @@ export default class DeviceStore {
     }
     get limit() {
         return this._limit
-    }
-
-    get selectedBrandName() {
-        return this._selectedBrand.name
     }
 }
