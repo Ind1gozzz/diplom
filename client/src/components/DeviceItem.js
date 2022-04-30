@@ -5,10 +5,30 @@ import { useHistory } from "react-router-dom";
 import star from '../assets/Star.png';
 import { DEVICE_ROUTE } from "../utils/const";
 import { fetchOneBrand } from "../http/deviceAPI";
+import { Context } from "../index";
+import { fetchUserBasket, addDeviceBasket } from "../http/basketAPI";
 
 const DeviceItem = ({device}) => {
     const [brand, setBrand] = useState({info: []})
+    const [userBasket, setUserBasket] = useState({info: []})
     const history = useHistory()
+    const {user} = useContext(Context)
+
+    const addToBasket = () => {
+            let data
+            //const data = UserBasket(user.userId)
+            // UserBasket(1).then(data => setUserBasket(data))
+            // console.log(data);
+            // console.log(user.userId);
+            // console.log(UserBasket);
+
+            // addDeviceBasket(device.id, user.userId).then(data => console.log(data))
+           
+
+            fetchUserBasket(user.userId).then(data => user.setUserBasket(data))
+            user.setUserBasket(data)
+            console.log(user.userBasket)
+    }
 
     useEffect(() => {
         fetchOneBrand(device.brandId).then(data => setBrand(data))
@@ -28,10 +48,11 @@ const DeviceItem = ({device}) => {
                 <div>{device.name}</div>
             </Card>
             <Button
-            variant="btn btn-outline-secondary"
-            style={{width:200, marginTop:4}}
-        >
-            Add to Basket
+                variant="btn btn-outline-secondary"
+                style={{width:"auto", marginTop:4}}
+                onClick={() => addToBasket(user.id)}
+            >
+                Add to Basket
             </Button>
         </Col>
 

@@ -36,7 +36,10 @@ const DevicePage = () => {
                         style={{width:300, height:300, fintSize:32, border: '5px solid lightgray'}}
                     >
                         <h3>Цена: {device.price} руб.</h3>
-                        <Button variant={"outline-dark"}>Добавить в корзину</Button>
+                        <Button
+                            variant={"outline-dark"}
+                            // onClick={() => addToBasket(device.id)}
+                        >Добавить в корзину</Button>
                     </Card>
                 </Col>
             </Row>
