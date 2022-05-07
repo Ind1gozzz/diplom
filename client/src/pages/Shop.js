@@ -22,11 +22,11 @@ const Shop = observer( () => {
     }, [])
 
     useEffect(() => {
-        fetchDevices(device.selectedType.id, device.selectedBrand, device.page, 10).then(data => {
+        fetchDevices(device.selectedType.id, device.selectedBrand.id, device.page, 10).then(data => {
             device.setDevices(data.rows)
             device.setTotalCount(data.count)
         })
-    }, [device.selectedType, device.selectedBrand, device.page])
+    }, [device.selectedType.id, device.selectedBrand.id, device.page])
 
     return (
         <Container className="mt-2">

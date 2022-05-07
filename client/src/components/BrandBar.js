@@ -15,7 +15,7 @@ const BrandBar = observer(() => {
                 className="p-2"
                 onClick={() => {device.setSelectedBrand(brand)}}
                 
-                active={brand.id === device.selectedBrand ? 1 : 0}
+                active={brand.id === device.selectedBrand.id ? 1 : 0}
             >
                 {brand.name}
             </ListGroup.Item>

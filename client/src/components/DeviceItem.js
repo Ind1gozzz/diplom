@@ -6,28 +6,21 @@ import star from '../assets/Star.png';
 import { DEVICE_ROUTE } from "../utils/const";
 import { fetchOneBrand } from "../http/deviceAPI";
 import { Context } from "../index";
-import { fetchUserBasket, addDeviceBasket } from "../http/basketAPI";
+import { getUserBasket, addDeviceBasket } from "../http/basketAPI";
 
 const DeviceItem = ({device}) => {
     const [brand, setBrand] = useState({info: []})
-    const [userBasket, setUserBasket] = useState({info: []})
     const history = useHistory()
     const {user} = useContext(Context)
 
-    const addToBasket = () => {
-            let data
-            //const data = UserBasket(user.userId)
-            // UserBasket(1).then(data => setUserBasket(data))
-            // console.log(data);
-            // console.log(user.userId);
-            // console.log(UserBasket);
+    const addToBasket = (basketId) => {
+        //const data = UserBasket(user.userId)
+        // UserBasket(1).then(data => setUserBasket(data))
+        // console.log(data);
+        // console.log(user.userId);
+        // console.log(UserBasket);
 
-            // addDeviceBasket(device.id, user.userId).then(data => console.log(data))
-           
-
-            fetchUserBasket(user.userId).then(data => user.setUserBasket(data))
-            user.setUserBasket(data)
-            console.log(user.userBasket)
+        // addDeviceBasket(device.id, user.userId).then(data => console.log(data))
     }
 
     useEffect(() => {
@@ -42,6 +35,7 @@ const DeviceItem = ({device}) => {
                     <div>{brand.name}</div>
                     <div className="d-flex align-items-center">
                         <div>{device.rating}</div>
+                        <div>{device.id}</div>
                         <Image width={18} height={18} src={star}/>
                     </div>
                 </div>
@@ -50,7 +44,7 @@ const DeviceItem = ({device}) => {
             <Button
                 variant="btn btn-outline-secondary"
                 style={{width:"auto", marginTop:4}}
-                onClick={() => addToBasket(user.id)}
+                onClick={() => addToBasket(user.userId)}
             >
                 Add to Basket
             </Button>

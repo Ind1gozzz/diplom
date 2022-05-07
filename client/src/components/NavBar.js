@@ -41,6 +41,13 @@ const NavBar = observer(() => {
                 >
                     Log out
                 </Button>
+                <Button
+                    variant="dark"
+                    onClick={() => history.push(BASKET_ROUTE)}
+                    className="ml-4px" style={{paddingLeft: "10px", marginRight:""}}
+                >
+                    Basket
+                </Button>
             </Nav>
             :
             <Nav className="ml-auto" style={{color: 'white', marginLeft:'auto', marginRight:30}}>
@@ -49,13 +56,6 @@ const NavBar = observer(() => {
                     onClick={() => history.push(LOGIN_ROUTE)}
                 >
                     Sing in
-                </Button>
-                <Button
-                    variant="dark"
-                    onClick={() => history.push(BASKET_ROUTE)}
-                    className="ml-4px" style={{paddingLeft: "10px", marginRight:""}}
-                >
-                    Basket
                 </Button>
             </Nav>
             

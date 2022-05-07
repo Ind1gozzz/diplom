@@ -70,6 +70,13 @@ class DeviceController
         );
         return res.json(device);
     }
+
+    async getUserBasketDevices(req, res)
+    {
+        let {devicesID} = req.query
+        const devices = await Device.findAll({where: {id: devicesID}})
+        return res.json(devices)
+    }
 }
 
 module.exports = new DeviceController();

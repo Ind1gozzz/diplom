@@ -12,10 +12,10 @@ class BasketController
 
     async fetchUserBasket(req, res)
     {
-        const {basketId} = req.body
-        const basketDevice = await BasketDevice.findAll({where: {basketId}})
+        let {BasketID} = req.query
+        const basketDevice = await BasketDevice.findAll({where: {basketId: BasketID}})
         return res.json(basketDevice)
     }
 }
 
-module.exports = new BasketController();
+module.exports = new BasketController()

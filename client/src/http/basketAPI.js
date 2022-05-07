@@ -5,7 +5,7 @@ export const addDeviceBasket = async (deviceId, userId) => {
     return data
 }
 
-export const fetchUserBasket = async (basketId) => {
-    const {data} = await $authHost.get('api/basket', {where: {basketId: basketId}})
+export const getUserBasket = async (BasketID) => {
+    const {data} = await $host.get('api/basket', {params:{BasketID}})
     return data
 }

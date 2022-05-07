@@ -41,3 +41,8 @@ export const fetchOneDevice = async (id) => {
     const {data} = await $host.get('api/device/' + id)
     return data
 }
+
+export const fetchUserBasketDevices = async (devicesID) => {
+    const {data} = await $host.get('api/device/devices/basket', {params: {devicesID}})
+    return data
+}
