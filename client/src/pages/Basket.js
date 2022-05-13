@@ -9,38 +9,38 @@ import { Container, Row, Col } from "react-bootstrap";
 
 
 const Basket = observer(() => {
-  const {device} = useContext(Context)
-  const {user} = useContext(Context)
-  const [userBasketDevice, setUserBasketDevice] = useState('')
-  const [devices, setDevices] = useState('')
-  let basketArr = []
+    const {device} = useContext(Context)
+    const {user} = useContext(Context)
+    const [userBasketDevice, setUserBasketDevice] = useState('')
+    const [devices, setDevices] = useState('')
+    let basketArr = []
 
-  getUserBasket(user.userId).then(data => setUserBasketDevice(data))
-        
-  for (let i = 0; i < userBasketDevice.length; i++) {
-    basketArr[i] = userBasketDevice[i].deviceId
-  }
+    useEffect(() => {
+        getUserBasket(user.userId).then(data => setUserBasketDevice(data))
 
-  user.setUserBasket(basketArr)
+    }, [])
 
-  useEffect(() => {
+    for (let i = 0; i < userBasketDevice.length; i++) {
+        basketArr[i] = userBasketDevice[i].deviceId
+    }
+    user.setUserBasket(basketArr)
+
+    useEffect(() => {
         fetchUserBasketDevices(basketArr).then(data => device.setDevices(data))
-  }, [basketArr])
+    }, [basketArr])
 
-
-
-  return (
-    <Container className="mt-2">
-        <Row>
-            <Col md={2}>
-                {/* <TypeBar /> */}
-            </Col>
-            <Col md={10}>
-                <DeviceList />
-            </Col>
-        </Row>
-    </Container>
-);
-})
+    return (
+        <Container className="mt-2">
+            <Row>
+                <Col md={2}>
+                    {/* <TypeBar /> */}
+                </Col>
+                <Col md={10}>
+                    <DeviceList />
+                </Col>
+            </Row>
+        </Container>
+        );
+    })
 
 export default Basket;

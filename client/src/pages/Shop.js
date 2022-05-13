@@ -10,7 +10,6 @@ import Pages from "../components/Pages";
 
 const Shop = observer( () => {
     const {device} = useContext(Context)
-
     
     useEffect(() => {
         fetchTypes().then(data => device.setTypes(data))

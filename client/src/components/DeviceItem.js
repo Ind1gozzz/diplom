@@ -6,26 +6,43 @@ import star from '../assets/Star.png';
 import { DEVICE_ROUTE } from "../utils/const";
 import { fetchOneBrand } from "../http/deviceAPI";
 import { Context } from "../index";
-import { getUserBasket, addDeviceBasket } from "../http/basketAPI";
+import { addDeviceBasket, isDeviceInBasket, deleteFromBasket } from "../http/basketAPI";
+import { observer } from "mobx-react-lite";
 
-const DeviceItem = ({device}) => {
+const DeviceItem = observer(({device}) => {
     const [brand, setBrand] = useState({info: []})
     const history = useHistory()
     const {user} = useContext(Context)
+    const [isInBasket, setIsInBasket] = useState({info: []})
 
     const addToBasket = (basketId) => {
-        //const data = UserBasket(user.userId)
-        // UserBasket(1).then(data => setUserBasket(data))
-        // console.log(data);
-        // console.log(user.userId);
-        // console.log(UserBasket);
+        addDeviceBasket(device.id, basketId).then(data => {
+            setIsInBasket(1)
+        })
 
-        // addDeviceBasket(device.id, user.userId).then(data => console.log(data))
+    }
+
+    const deleteDeviceBasket = (basketId) => {
+        deleteFromBasket(device.id, basketId).then(data => {
+            setIsInBasket(0)
+        })
     }
 
     useEffect(() => {
         fetchOneBrand(device.brandId).then(data => setBrand(data))
     }, [])
+
+    useEffect(() => {
+        isDeviceInBasket(device.id, user.userId).then(data => {
+            if(data.length != 0 && user.isAuth) {
+                setIsInBasket(data)
+            }
+            else {
+                setIsInBasket(data)
+            }
+        })
+    }, [])
+
 
     return (
         <Col md={3} className="mt-3">
@@ -41,6 +58,15 @@ const DeviceItem = ({device}) => {
                 </div>
                 <div>{device.name}</div>
             </Card>
+            {user.isAuth && isInBasket ? 
+                <Button
+                variant="btn btn-danger"
+                style={{width:"auto", marginTop:4}}
+                onClick={() => deleteDeviceBasket(user.userId)}
+            >
+                Delete from Basket
+            </Button>
+            :
             <Button
                 variant="btn btn-outline-secondary"
                 style={{width:"auto", marginTop:4}}
@@ -48,9 +74,10 @@ const DeviceItem = ({device}) => {
             >
                 Add to Basket
             </Button>
+            }
         </Col>
 
     );
-};
+});
 
 export default DeviceItem;
