@@ -2,9 +2,10 @@ import React, {useContext, useEffect, useState} from "react";
 import { observer } from 'mobx-react-lite';
 import { fetchUserBasketDevices } from '../http/deviceAPI';
 import { Context } from '../index';
-import { getUserBasket } from "../http/basketAPI";
+import { getUserBasket, deleteAllFromBasket } from "../http/basketAPI";
 import DeviceList from "../components/DeviceList";
-import { Container, Row, Col } from "react-bootstrap";
+import { Container, Row, Col, Button } from "react-bootstrap";
+import PayWindow from "../components/modals/PayWindow";
 
 
 
@@ -13,11 +14,11 @@ const Basket = observer(() => {
     const {user} = useContext(Context)
     const [userBasketDevice, setUserBasketDevice] = useState('')
     const [devices, setDevices] = useState('')
+    const [PayWindowVisible, setPayWindowVisible] = useState(false)
     let basketArr = []
 
     useEffect(() => {
         getUserBasket(user.userId).then(data => setUserBasketDevice(data))
-
     }, [])
 
     for (let i = 0; i < userBasketDevice.length; i++) {
@@ -36,9 +37,25 @@ const Basket = observer(() => {
                     {/* <TypeBar /> */}
                 </Col>
                 <Col md={10}>
+                    {basketArr.length === 0 ?
+                    <h2>Your basket is empty</h2>
+                    :
+                    <Col md={10}>
+                    <h2>Your basket</h2>
                     <DeviceList />
+                    <Button
+                variant={"outline-dark"}
+                className="mt-5"
+                onClick={() => setPayWindowVisible(true)}
+            >
+                Pay the basket
+            </Button>
+            <PayWindow show={PayWindowVisible} onHide={() => setPayWindowVisible(false)} />
+                    </Col>
+                    }
                 </Col>
             </Row>
+            
         </Container>
         );
     })

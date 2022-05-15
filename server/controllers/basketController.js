@@ -1,4 +1,4 @@
-const {BasketDevice} = require('../models/models')
+const {BasketDevice, Device} = require('../models/models')
 const ApiError = require('../error/ApiError');
 
 class BasketController
@@ -27,6 +27,20 @@ class BasketController
         let {deviceID, basketID} = req.body
         const device = await BasketDevice.destroy({where: {basketId: basketID, deviceId: deviceID}})
         return res.json(device)
+    }
+
+    async deleteAllFromBasket(req, res) {
+        let {basketId} = req.body
+        const basket = await BasketDevice.destroy({where: {basketId: basketId}})
+        return res.json(basket)
+    }
+
+    async getSummaryDevices(req, res) {
+        let {basketId} = req.query
+        const basket = await BasketDevice.findAndCountAll({
+            where: {basketId: basketId},
+        })
+        return res.json(basket)
     }
 }
 

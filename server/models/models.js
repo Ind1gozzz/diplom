@@ -49,6 +49,13 @@ const TypeBrand = sequelize.define(('type_brang'), {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true}
 });
 
+const Report = sequelize.define('report', {
+    id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
+    date: {type: DataTypes.DATE, allowNull: false}
+})
+
+
+
 User.hasOne(Basket);
 Basket.belongsTo(User);
 
@@ -76,6 +83,12 @@ DeviceInfo.belongsTo(Device);
 Type.belongsToMany(Brand, {through: TypeBrand});
 Brand.belongsToMany(Type,{through: TypeBrand});
 
+Device.hasMany(Report);
+Report.belongsTo(Device);
+
+User.hasMany(Report);
+Report.belongsTo(User);
+
 module.exports = {
     User,
     Basket,
@@ -85,5 +98,6 @@ module.exports = {
     Brand,
     Rating,
     DeviceInfo,
-    TypeBrand
+    TypeBrand,
+    Report
 }

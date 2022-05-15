@@ -6,8 +6,9 @@ import star from '../assets/Star.png';
 import { DEVICE_ROUTE } from "../utils/const";
 import { fetchOneBrand } from "../http/deviceAPI";
 import { Context } from "../index";
-import { addDeviceBasket, isDeviceInBasket, deleteFromBasket } from "../http/basketAPI";
+import { addDeviceBasket, isDeviceInBasket, deleteFromBasket, getSummaryDevices } from "../http/basketAPI";
 import { observer } from "mobx-react-lite";
+import { addDeviceReport } from "../http/reportAPI";
 
 const DeviceItem = observer(({device}) => {
     const [brand, setBrand] = useState({info: []})
@@ -19,7 +20,6 @@ const DeviceItem = observer(({device}) => {
         addDeviceBasket(device.id, basketId).then(data => {
             setIsInBasket(1)
         })
-
     }
 
     const deleteDeviceBasket = (basketId) => {
@@ -27,6 +27,12 @@ const DeviceItem = observer(({device}) => {
             setIsInBasket(0)
         })
     }
+
+    const addReport = (userId) => {
+        getSummaryDevices(userId).then(data => console.log(data))
+    }
+
+    
 
     useEffect(() => {
         fetchOneBrand(device.brandId).then(data => setBrand(data))
@@ -52,11 +58,11 @@ const DeviceItem = observer(({device}) => {
                     <div>{brand.name}</div>
                     <div className="d-flex align-items-center">
                         <div>{device.rating}</div>
-                        <div>{device.id}</div>
                         <Image width={18} height={18} src={star}/>
                     </div>
                 </div>
                 <div>{device.name}</div>
+                <div>{device.price} Rub</div>
             </Card>
             {user.isAuth && isInBasket ? 
                 <Button

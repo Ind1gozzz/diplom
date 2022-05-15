@@ -19,3 +19,13 @@ export const deleteFromBasket = async (deviceID, basketID) => {
     const {data} = await $host.post('api/basket/delete', {deviceID, basketID})
     return data
 }
+
+export const deleteAllFromBasket = async (basketId) => {
+    const {data} = await $host.post('api/basket/delete/deleteAll', {basketId})
+    return data
+}
+
+export const getSummaryDevices = async (basketid) => {
+    const {data} = await $host.get('api/basket/getsummary', {params: {basketid}})
+    return data
+}
