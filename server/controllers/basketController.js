@@ -1,5 +1,6 @@
 const {BasketDevice, Device} = require('../models/models')
 const ApiError = require('../error/ApiError');
+const { Sequelize } = require('sequelize');
 
 class BasketController
 {
@@ -39,6 +40,9 @@ class BasketController
         let {basketId} = req.query
         const basket = await BasketDevice.findAndCountAll({
             where: {basketId: basketId},
+            include: [{model:Device, 
+                attributes: [[Sequelize.fn('sum', Sequelize.col('price'))]]}],
+        
         })
         return res.json(basket)
     }

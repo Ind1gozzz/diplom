@@ -25,7 +25,7 @@ export const deleteAllFromBasket = async (basketId) => {
     return data
 }
 
-export const getSummaryDevices = async (basketid) => {
-    const {data} = await $host.get('api/basket/getsummary', {params: {basketid}})
+export const getSummaryDevices = async (basketId) => {
+    const {data} = await $host.get('api/basket/getsummary', {params: {basketId}})
     return data
 }

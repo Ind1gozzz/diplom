@@ -6,6 +6,7 @@ import { getUserBasket, deleteAllFromBasket } from "../http/basketAPI";
 import DeviceList from "../components/DeviceList";
 import { Container, Row, Col, Button } from "react-bootstrap";
 import PayWindow from "../components/modals/PayWindow";
+import { getSummaryDevices } from '../http/basketAPI'
 
 
 
@@ -24,11 +25,16 @@ const Basket = observer(() => {
     for (let i = 0; i < userBasketDevice.length; i++) {
         basketArr[i] = userBasketDevice[i].deviceId
     }
+
     user.setUserBasket(basketArr)
 
     useEffect(() => {
         fetchUserBasketDevices(basketArr).then(data => device.setDevices(data))
     }, [basketArr])
+
+    const getSummaryDev = (basketID) => {
+        getSummaryDevices(basketID).then(data => console.log(data))
+    }
 
     return (
         <Container className="mt-2">
@@ -44,12 +50,19 @@ const Basket = observer(() => {
                     <h2>Your basket</h2>
                     <DeviceList />
                     <Button
-                variant={"outline-dark"}
-                className="mt-5"
-                onClick={() => setPayWindowVisible(true)}
-            >
-                Pay the basket
-            </Button>
+                        variant={"outline-dark"}
+                        className="mt-5"
+                        onClick={() => setPayWindowVisible(true)}
+                    >
+                        Pay the basket
+                    </Button>
+                    <Button
+                        variant={"outline-dark"}
+                        className="mt-5"
+                        onClick={() => getSummaryDev(user.userId)}
+                    >
+                        Button - 1
+                    </Button>
             <PayWindow show={PayWindowVisible} onHide={() => setPayWindowVisible(false)} />
                     </Col>
                     }
