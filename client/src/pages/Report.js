@@ -1,9 +1,14 @@
 import { observer } from "mobx-react-lite";
 import React from "react";
+import { Container, Form } from "react-bootstrap";
 
 const Report = observer(() => {
     return (
-        <h1> Report</h1>
+        <Container>
+            <Form>
+
+            </Form> 
+        </Container>
     )
 })
 

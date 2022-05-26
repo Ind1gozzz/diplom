@@ -62,7 +62,7 @@ const DeviceItem = observer(({device}) => {
                     </div>
                 </div>
                 <div>{device.name}</div>
-                <div>{device.price} Rub</div>
+                <div>{new Intl.NumberFormat("ru-RU").format(device.price)} Rub</div>
             </Card>
             {user.isAuth && isInBasket ? 
                 <Button

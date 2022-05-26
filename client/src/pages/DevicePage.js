@@ -35,7 +35,7 @@ const DevicePage = () => {
                         className="d-flex flex-column align-items-center justify-content-around"
                         style={{width:300, height:300, fintSize:32, border: '5px solid lightgray'}}
                     >
-                        <h3>Цена: {device.price} руб.</h3>
+                        <h3>Цена: {new Intl.NumberFormat("ru-RU").format(device.price)} руб.</h3>
                         <Button
                             variant={"outline-dark"}
                             // onClick={() => addToBasket(device.id)}

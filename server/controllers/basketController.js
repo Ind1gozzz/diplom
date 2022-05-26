@@ -38,11 +38,9 @@ class BasketController
 
     async getSummaryDevices(req, res) {
         let {basketId} = req.query
-        const basket = await BasketDevice.findAndCountAll({
-            where: {basketId: basketId},
-            include: [{model:Device, 
-                attributes: [[Sequelize.fn('sum', Sequelize.col('price'))]]}],
-        
+        const basket = await Device.findAndCountAll({
+            where: {id: basketId},
+            attributes: ['price']
         })
         return res.json(basket)
     }
