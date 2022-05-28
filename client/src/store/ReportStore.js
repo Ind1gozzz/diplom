@@ -2,12 +2,24 @@ import { makeAutoObservable } from "mobx";
 
 export default class ReportStore {
     constructor() {
+        this._brands = []
+        this._types = []
+        this._users = []
         this._selectedType = {}
         this._selectedBrand = {}
-        this._seelctedUser = {}
+        this._selectedUser = {}
         makeAutoObservable(this)
     }
 
+    setUsers(users) {
+        this._users = users
+    }
+    setBrands(brands) {
+        this._brands = brands
+    }
+    setTypes(types) {
+        this._types = types
+    }
     setSelectedType(type) {
         this._selectedType = type
     }
@@ -15,16 +27,25 @@ export default class ReportStore {
         this._selectedBrand = brand
     }
     setSelectedUser(user) {
-        this._seelctedUser = user
+        this._selectedUser = user
     }
 
-    get type() {
+    get users() {
+        return this._users
+    }
+    get brands() {
+        return this._brands
+    }
+    get types() {
+        return this._types
+    }
+    get selectedType() {
         return this._selectedType
     }
-    get brand() {
+    get selectedBrand() {
         return this._selectedBrand
     }
-    get user() {
-        return this._seelctedUser
+    get selectedUser() {
+        return this._selectedUser
     }
 }   

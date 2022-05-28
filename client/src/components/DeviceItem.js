@@ -8,7 +8,6 @@ import { fetchOneBrand } from "../http/deviceAPI";
 import { Context } from "../index";
 import { addDeviceBasket, isDeviceInBasket, deleteFromBasket, getSummaryDevices } from "../http/basketAPI";
 import { observer } from "mobx-react-lite";
-import { addDeviceReport } from "../http/reportAPI";
 
 const DeviceItem = observer(({device}) => {
     const [brand, setBrand] = useState({info: []})
@@ -27,12 +26,6 @@ const DeviceItem = observer(({device}) => {
             setIsInBasket(0)
         })
     }
-
-    const addReport = (userId) => {
-        getSummaryDevices(userId).then(data => console.log(data))
-    }
-
-    
 
     useEffect(() => {
         fetchOneBrand(device.brandId).then(data => setBrand(data))
