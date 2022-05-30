@@ -5,9 +5,12 @@ export default class ReportStore {
         this._brands = []
         this._types = []
         this._users = []
+        this._devices = []
         this._selectedType = {}
         this._selectedBrand = {}
         this._selectedUser = {}
+        this._selectedDevice = {}
+        this._reports = []
         makeAutoObservable(this)
     }
 
@@ -20,6 +23,9 @@ export default class ReportStore {
     setTypes(types) {
         this._types = types
     }
+    setDevices(devices) {
+        this._devices = devices
+    }
     setSelectedType(type) {
         this._selectedType = type
     }
@@ -28,6 +34,12 @@ export default class ReportStore {
     }
     setSelectedUser(user) {
         this._selectedUser = user
+    }
+    setSelectedDevice(device) {
+        this._selectedDevice = device
+    }
+    setReports(reports) {
+        this._reports = reports
     }
 
     get users() {
@@ -39,6 +51,9 @@ export default class ReportStore {
     get types() {
         return this._types
     }
+    get devices() {
+        return this._devices
+    }
     get selectedType() {
         return this._selectedType
     }
@@ -47,5 +62,11 @@ export default class ReportStore {
     }
     get selectedUser() {
         return this._selectedUser
+    }
+    get selectedDevice() {
+        return this._selectedDevice
+    }
+    get reports() {
+        return this._reports
     }
 }   

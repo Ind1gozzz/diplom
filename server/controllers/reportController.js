@@ -1,4 +1,4 @@
-const {Report} = require('../models/models')
+const {Report, User, Brand, Device, Type} = require('../models/models')
 
 class ReportControllet {
     async addDeviceReport(req, res) {
@@ -9,7 +9,20 @@ class ReportControllet {
 
     async fetchUserReport(req, res) {
         let {deviceId, userId} = req.query
-        const report = await Report.findAndCountAll({where: {deviceId: deviceId, userId: userId}})
+        let report
+        if (!deviceId && !userId) {
+            report = await Report.findAndCountAll({include: [{model: User}, {model: Device}]})
+        }
+        if (!deviceId && userId) {
+            report = await Report.findAndCountAll({where: {userId: userId}, include: [{model: User, attributes:['id','email']}]})
+        }
+        if (deviceId && !userId) {
+            report = await Report.findAndCountAll({where: {deviceId: deviceId, include: [{model: User, attributes:['id','email']}]}})
+        }
+        if (deviceId && userId) {
+            report = await Report.findAndCountAll({where: {deviceId: deviceId, userId: userId}, include: [{model: User, attributes:['id','email']}]})
+        }
+
         return res.json(report)
     }
 }

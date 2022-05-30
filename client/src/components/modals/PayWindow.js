@@ -2,11 +2,16 @@ import { observer } from "mobx-react-lite"
 import React, { useState } from "react"
 import { Form, Button, Row } from "react-bootstrap"
 import Modal from "react-bootstrap/Modal"
+import { addDeviceReport } from "../../http/reportAPI"
 
 const PayWindow = observer(({show, onHide}) => {
     const [cardNumber, setCardNumber] = useState('')
     const [expiryDate, setExpiryDate] = useState('')
     const [cVVCode, setCVVCode] = useState('')
+
+    const makePayment = () => {
+        addDeviceReport()
+    }
 
     return (
         <Modal
@@ -61,7 +66,7 @@ const PayWindow = observer(({show, onHide}) => {
         </Modal.Body>
         <Modal.Footer>
             <Button variant="outline-danger" onClick={onHide}>Close</Button>
-            <Button variant="outline-success" onClick={() => console.log("qwd")}>Complete payment</Button>
+            <Button variant="outline-success" onClick={() => makePayment()}>Complete payment</Button>
         </Modal.Footer>
         </Modal>
     )
