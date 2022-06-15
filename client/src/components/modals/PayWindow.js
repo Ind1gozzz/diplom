@@ -2,16 +2,26 @@ import { observer } from "mobx-react-lite"
 import React, { useState } from "react"
 import { Form, Button, Row } from "react-bootstrap"
 import Modal from "react-bootstrap/Modal"
+import { deleteAllFromBasket } from "../../http/basketAPI"
 import { addDeviceReport } from "../../http/reportAPI"
 
-const PayWindow = observer(({show, onHide}) => {
+const PayWindow = observer(({show, onHide, user, devices}) => {
     const [cardNumber, setCardNumber] = useState('')
     const [expiryDate, setExpiryDate] = useState('')
     const [cVVCode, setCVVCode] = useState('')
-
+    let devis = []
+    devis = devices
+    console.log(devis);
     const makePayment = () => {
-        addDeviceReport()
+        let devs = [1,4,5]
+        for (let i = 0; i < devs.length ; i++) {
+            addDeviceReport(devs[i], user.userId).then(data => console.log(data))  
+        }
+        deleteAllFromBasket(user.userId)
+        onHide()
     }
+    console.log(user.userId);
+    console.log(devices);
 
     return (
         <Modal

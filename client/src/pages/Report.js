@@ -9,6 +9,7 @@ import { fetchDeviceReport } from "../http/reportAPI";
 const Report = observer(() => {
     const {report} = useContext(Context)
     const [reports, setReports] = useState('')
+    const [total, setTotal] = useState('')
 
     useEffect(() => {
         fetchTypes().then(data => report.setTypes(data))
@@ -20,7 +21,29 @@ const Report = observer(() => {
     const generateReport = () => {
         fetchDeviceReport(report.selectedDevice.id, report.selectedUser.id).then(data => {
             setReports(data.rows)
+            setTotal(data.count)
         })
+    }
+
+    const clearFilters = () => {
+        setReports([])
+        report.setSelectedBrand('')
+        report.setSelectedDevice('')
+        report.setSelectedType('')
+        report.setSelectedUser('')
+    }
+
+    const countCost = () => {
+        let tempArr = []
+        let totalCost = 0
+        for (let i = 0; i < reports.length; i++) {
+            tempArr[i] = reports[i].device.price
+        }
+        for (let i = 0; i < tempArr.length; i++) {
+            totalCost += tempArr[i]
+        }
+        console.log(totalCost);
+        return new Intl.NumberFormat("ru-RU").format(totalCost)
     }
 
     return (
@@ -82,20 +105,23 @@ const Report = observer(() => {
             <Button
                 className="mb-3"
                 variant={"outline-dark"}
+                onClick={() => clearFilters()}
+            >
+                Clear filters
+            </Button>
+            <div></div>
+            <Button
+                className="mb-3"
+                variant={"success"}
                 onClick={() => generateReport()}
             >
                 Show the report
             </Button>
-            <Button
-                className="mb-3"
-                variant={"outline-dark"}
-                onClick={() => setReports([])}
-            >
-                Clear filtres
-            </Button>
-            {console.log(reports)}
+     
+            {console.log(reports, reports.length)}
             {!reports.length == 0 ?
-             <Table striped bordered hover>
+            <div>
+            <Table striped bordered hover>
                 <thead>
                     <tr>
                     <th>
@@ -108,12 +134,16 @@ const Report = observer(() => {
                         Device price
                     </th>
                     <th>
+                        Device type
+                    </th>
+                    <th>
                         Date
                     </th>
                 </tr>
                 </thead>
                 <tbody>
-                    {reports.map(report => <tr>
+                {reports.map(report => 
+                    <tr key={report.id}>
                         <td>
                             {report.user.email}
                         </td>
@@ -124,17 +154,21 @@ const Report = observer(() => {
                             {report.device.price}
                         </td>
                         <td>
+                            {report.device.typeId}
+                        </td>
+                        <td>
                             {report.date}
                         </td>
-                    </tr>)}
-                    
-                
-                    
+                    </tr>
+                )}
                 </tbody>
                 
             </Table>
+            <h4>In total: {total} rows for the amount of {countCost()} RUB</h4>
+            </div>
             :
-            <div></div>
+            <div>
+            </div>
             }            
         </Container>
     )

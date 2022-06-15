@@ -3,14 +3,22 @@ import { Container, Col, Image, Row, Button, Card } from "react-bootstrap";
 import BigStar from '../assets/BigStar.png'
 import {useParams} from "react-router-dom"
 import { fetchOneDevice } from "../http/deviceAPI";
+import { addDeviceBasket,  } from "../http/basketAPI";
 
 const DevicePage = () => {
     const [device, setDevice] = useState({info: []})
     const {id} = useParams()
+    const [isInBasket, setIsInBasket] = useState({info: []})
 
     useEffect(() => {
         fetchOneDevice(id).then(data => setDevice(data))
     }, [])
+
+    const addToBasket = (basketId) => {
+        addDeviceBasket(device.id, basketId).then(data => {
+            setIsInBasket(1)
+        })
+    }
 
     return (
              
@@ -38,7 +46,7 @@ const DevicePage = () => {
                         <h3>Цена: {new Intl.NumberFormat("ru-RU").format(device.price)} руб.</h3>
                         <Button
                             variant={"outline-dark"}
-                            // onClick={() => addToBasket(device.id)}
+                            onClick={() => addToBasket(device.id)}
                         >Добавить в корзину</Button>
                     </Card>
                 </Col>

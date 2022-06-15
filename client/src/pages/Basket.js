@@ -4,7 +4,7 @@ import { fetchUserBasketDevices } from '../http/deviceAPI';
 import { Context } from '../index';
 import { getUserBasket, deleteAllFromBasket } from "../http/basketAPI";
 import DeviceList from "../components/DeviceList";
-import { Container, Row, Col, Button } from "react-bootstrap";
+import { Container, Row, Col, Button, Form } from "react-bootstrap";
 import PayWindow from "../components/modals/PayWindow";
 import { getSummaryDevices } from '../http/basketAPI'
 
@@ -17,6 +17,7 @@ const Basket = observer(() => {
     const [devices, setDevices] = useState('')
     const [basketCost, setBasketCost] = useState('')
     const [quantityDev, setQuantityDev] = useState('')
+    const [deliveryAddress, setDeliveryAddress] = useState('')
     const [PayWindowVisible, setPayWindowVisible] = useState(false)
     let basketArr = []
     let basketCostArr = []
@@ -68,14 +69,33 @@ const Basket = observer(() => {
                     :
                     <h4>You have {quantityDev} devices in the basket for the amount of {new Intl.NumberFormat("ru-RU").format(basketCost)} Rub</h4>
                     }
+                    <div style={{marginRight:"auto", width:"50%"}}>
+                        <Form.Label className="mt-2">
+                            <h4>Enter delivery address</h4>  
+                        </Form.Label>
+                        <Form.Control
+                                className="mt-1"Check
+                                value={deliveryAddress}
+                                onChange={e => setDeliveryAddress(e.target.deliveryAddress)}
+                                placeholder={"Delivery address"}
+                        />
+                    </div>
+                    <div style={{marginRight: "auto", width: "50%"}}>
+                        <Form.Check
+                            className="mt-2"
+                            type={"radio"}
+                            label={"I'll get it in the store"}
+                        />
+                    </div>
                     <Button
                         variant={"outline-dark"}
-                        className="mt-5"
+                        className="mt-4"
+                        style={{marginLeft: "auto"}}
                         onClick={() => setPayWindowVisible(true)}
                     >
                         Pay the basket
                     </Button>
-            <PayWindow show={PayWindowVisible} onHide={() => setPayWindowVisible(false)} />
+            <PayWindow show={PayWindowVisible} onHide={() => setPayWindowVisible(false)} user={user} devices={basketArr} />
                     </Col>
                     }
                 </Col>
