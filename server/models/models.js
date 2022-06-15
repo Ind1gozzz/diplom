@@ -54,6 +54,14 @@ const Report = sequelize.define('report', {
     date: {type: DataTypes.DATE, allowNull: false}
 })
 
+const Review = sequelize.define('review', {
+    id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
+    username: {type: DataTypes.STRING(50), allowNull: false},
+    reviewtext: {type: DataTypes.STRING, allowNull: false},
+    userId: {type: DataTypes.INTEGER, allowNull: false},
+    deviceId: {type: DataTypes.INTEGER, allowNull: false}
+})
+
 
 
 User.hasOne(Basket);
@@ -89,6 +97,12 @@ Report.belongsTo(Device);
 User.hasMany(Report);
 Report.belongsTo(User);
 
+User.hasMany(Review);
+Review.belongsTo(User);
+
+Device.hasMany(Review);
+Review.belongsTo(Device);
+
 module.exports = {
     User,
     Basket,
@@ -99,5 +113,6 @@ module.exports = {
     Rating,
     DeviceInfo,
     TypeBrand,
-    Report
+    Report,
+    Review
 }
