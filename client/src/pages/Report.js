@@ -1,6 +1,6 @@
 import { observer } from "mobx-react-lite";
 import React, { useContext, useEffect, useState } from "react";
-import { Container, Dropdown, Form, Button, Table } from "react-bootstrap";
+import { Container, Dropdown, Form, Button, Table, Row } from "react-bootstrap";
 import { Context } from "../index";
 import { fetchBrands, fetchDevices, fetchTypes } from "../http/deviceAPI";
 import { fetchUsers } from "../http/userAPI"
@@ -19,7 +19,7 @@ const Report = observer(() => {
     }, [])
 
     const generateReport = () => {
-        fetchDeviceReport(report.selectedDevice.id, report.selectedUser.id).then(data => {
+        fetchDeviceReport(report.selectedDevice.id, report.selectedUser.id, report.selectedType.id).then(data => {
             setReports(data.rows)
             setTotal(data.count)
         })
@@ -49,6 +49,7 @@ const Report = observer(() => {
     return (
 
         <Container>
+            <Row>
             <Form>
                 <Dropdown className="mt-2 mb-2">
                     <Dropdown.Toggle>{report.selectedDevice.name || "Select the device"}</Dropdown.Toggle>
@@ -102,6 +103,8 @@ const Report = observer(() => {
                     </Dropdown.Menu>
                 </Dropdown>
             </Form>
+            </Row>
+            
             <Button
                 className="mb-3"
                 variant={"outline-dark"}

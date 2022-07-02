@@ -13,9 +13,10 @@ const PayWindow = observer(({show, onHide, user, devices}) => {
     devis = devices
     console.log(devis);
     const makePayment = () => {
-        let devs = [1,4,5]
-        for (let i = 0; i < devs.length ; i++) {
-            addDeviceReport(devs[i], user.userId).then(data => console.log(data))  
+        let Devicesss = []
+        Devicesss = devis
+        for (let i = 0; i < Devicesss.length ; i++) {
+            addDeviceReport(Devicesss[i], user.userId).then(data => console.log(data))  
         }
         deleteAllFromBasket(user.userId)
         onHide()

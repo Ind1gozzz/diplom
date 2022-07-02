@@ -8,19 +8,34 @@ class ReportControllet {
     }
 
     async fetchUserReport(req, res) {
-        let {deviceId, userId} = req.query
+        let {deviceId, userId, typeId} = req.query
         let report
         if (!deviceId && !userId) {
             report = await Report.findAndCountAll({include: [{model: User}, {model: Device}]})
         }
         if (!deviceId && userId) {
-            report = await Report.findAndCountAll({where: {userId: userId}, include: [{model: User, attributes:['id','email']}, {model: Device}, ]})
+            report = await Report.findAndCountAll({where: {userId: userId}, include: [{model: User, attributes:['id','email']}, {model: Device}]})
         }
         if (deviceId && !userId) {
             report = await Report.findAndCountAll({where: {deviceId: deviceId}, include: [{model: User, attributes:['id','email']}, {model: Device}]})
         }
         if (deviceId && userId) {
             report = await Report.findAndCountAll({where: {deviceId: deviceId, userId: userId}, include: [{model: User, attributes:['id','email']}, {model: Device}]})
+        }
+
+        if (typeId) {
+            if (!deviceId && !userId) {
+                report = await Report.findAndCountAll({include: [{model: User}, {model: Device, where: {typeId: typeId}}]})
+            }
+            if (!deviceId && userId) {
+                report = await Report.findAndCountAll({where: {userId: userId}, include: [{model: User, attributes:['id','email']}, {model: Device, where: {typeId: typeId}}]})
+            }
+            if (deviceId && !userId) {
+                report = await Report.findAndCountAll({where: {deviceId: deviceId}, include: [{model: User, attributes:['id','email']}, {model: Device, where: {typeId: typeId}}]})
+            }
+            if (deviceId && userId) {
+                report = await Report.findAndCountAll({where: {deviceId: deviceId}, include: [{model: User, attributes:['id','email']}, {model: Device, where: {typeId: typeId}}]})
+            }
         }
 
         return res.json(report)

@@ -20,45 +20,45 @@ const NavBar = observer(() => {
     return (
         <Navbar bg="dark" variant="dark" className="ml-auto">
             <NavLink
-                style={{color: 'white', marginLeft:30}}
+                style={{color: 'white', marginLeft:30, marginRight: "auto"}}
                 to = {SHOP_ROUTE}
                 // onClick={() => }
             >
-                Music Store
+               <h3>La Musica</h3>
             </NavLink>
-            <Button
+            {/* <Button
                 variant="btn btn-light"
                 onClick={() => history.push(REPORT_ROUTE)}
-                className="ml-4px" style={{paddingLeft: "10px", marginLeft:"10px"}}
+                className="ml-4px" style={{paddingLeft: "10px", marginLeft:"auto", marginRight:"15px"}}
             >
                 REPORT
-            </Button>
+            </Button> */}
             {user.isAuth ? 
             <Nav className="ml-auto" style={{color: 'white'}}>
-                <Button 
+                {/* <Button 
                     variant="info"
                     onClick={() =>history.push(ADMIN_ROUTE)}
-                    style={{paddingRight: "10px", marginLeft:'auto'}}
+                    style={{paddingRight: "10px", marginRight:"15px"}}
                 >
                     Admin
-                </Button>
+                </Button> */}
                 <Button
-                    variant="light"
+                    variant="danger"
                     onClick={() => logOut()}
-                    className="ml-4px" style={{paddingLeft: "10px", marginRight:"auto"}}
+                    className="ml-4px" style={{paddingLeft: "10px", marginLeft:"auto", marginRight:"15px"}}
                 >
                     Log out
                 </Button>
                 <Button
-                    variant="dark"
+                    variant="success"
                     onClick={() => history.push(BASKET_ROUTE)}
-                    className="ml-4px" style={{paddingLeft: "10px", marginRight:""}}
+                    className="ml-4px" style={{paddingLeft: "10px", marginLeft:"auto", marginRight:"15px"}}
                 >
                     Basket
                 </Button>
             </Nav>
             :
-            <Nav className="ml-auto" style={{color: 'white', marginLeft:'auto', marginRight:30}}>
+            <Nav className="ml-auto" style={{color: 'white', marginLeft:'auto', marginRight:"30"}}>
                 <Button
                     variant={"outline-light"}
                     onClick={() => {

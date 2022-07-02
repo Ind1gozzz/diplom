@@ -7,6 +7,7 @@ import DeviceList from "../components/DeviceList";
 import TypeBar from "../components/TypeBar";
 import { fetchBrands, fetchDevices, fetchTypes } from "../http/deviceAPI";
 import Pages from "../components/Pages";
+import Footer from "../components/Footer";
 
 const Shop = observer( () => {
     const {device} = useContext(Context)
@@ -14,7 +15,7 @@ const Shop = observer( () => {
     useEffect(() => {
         fetchTypes().then(data => device.setTypes(data))
         fetchBrands().then(data => device.setBrands(data))
-        fetchDevices(null, null, 1, 6).then(data => {
+        fetchDevices(null, null, 1, 5).then(data => {
             device.setDevices(data.rows)
             device.setTotalCount(data.count)
         })

@@ -8,8 +8,6 @@ import { Container, Row, Col, Button, Form } from "react-bootstrap";
 import PayWindow from "../components/modals/PayWindow";
 import { getSummaryDevices } from '../http/basketAPI'
 
-
-
 const Basket = observer(() => {
     const {device} = useContext(Context)
     const {user} = useContext(Context)

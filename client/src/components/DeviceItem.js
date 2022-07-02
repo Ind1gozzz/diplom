@@ -45,7 +45,9 @@ const DeviceItem = observer(({device}) => {
 
     return (
         <Col md={3} className="mt-3 mb-5">
-            <Card style={{width: 200, height: 500, cursor: 'pointer'}} border={"light"}  onClick={() => history.push(DEVICE_ROUTE + '/' + device.id)}>
+            <Card
+                style={{width: 200, height: 500, cursor: 'pointer'}} border={"light"}
+                onClick={() => history.push(DEVICE_ROUTE + '/' + device.id)}>
                 <Image width={120} height={360} src={process.env.REACT_APP_API_URL + device.img}/>
                 <div className="text-black-50 mt-1 d-flex justify-content-between align-items-center">
                     <div>{brand.name}</div>
