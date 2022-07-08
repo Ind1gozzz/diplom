@@ -37,7 +37,7 @@ class DeviceController
     {
         let {brandId, typeId, limit, page} = req.query;
         page = page || 1;
-        limit = limit || 9;
+        limit = 5 || 9;
         let offset = page * limit - limit;
         let devices;
         if (!brandId && !typeId)
@@ -69,6 +69,13 @@ class DeviceController
             }
         );
         return res.json(device);
+    }
+
+    async getUserBasketDevices(req, res)
+    {
+        let {devicesID} = req.query
+        const devices = await Device.findAll({where: {id: devicesID}})
+        return res.json(devices)
     }
 }
 

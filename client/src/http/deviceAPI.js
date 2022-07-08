@@ -20,12 +20,17 @@ export const fetchBrands = async () => {
     return data
 }
 
+export const fetchOneBrand = async (brandId) => {
+    const {data} = await $host.get('api/brand/' + brandId)
+    return data
+}
+
 export const createDevice = async (device) => {
     const {data} = await $authHost.post('api/device', device)
     return data
 }
 
-export const fetchDevices = async (typeId, brandId, page, limit = 5) => {
+export const fetchDevices = async (typeId, brandId, page, limit) => {
     const {data} = await $host.get('api/device', {params: {
         typeId, brandId, page, limit
     }})
@@ -34,5 +39,10 @@ export const fetchDevices = async (typeId, brandId, page, limit = 5) => {
 
 export const fetchOneDevice = async (id) => {
     const {data} = await $host.get('api/device/' + id)
+    return data
+}
+
+export const fetchUserBasketDevices = async (devicesID) => {
+    const {data} = await $host.get('api/device/devices/basket', {params: {devicesID}})
     return data
 }

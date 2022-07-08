@@ -3,14 +3,12 @@ import Basket from './pages/Basket';
 import Auth from './pages/Auth';
 import Shop from './pages/Shop';
 import DevicePage from './pages/DevicePage';
-import { ADMIN_ROUTE, BASKET_ROUTE, SHOP_ROUTE, LOGIN_ROUTE, REGISTRATION_ROUTE, DEVICE_ROUTE} from './utils/const';
+import Report from './pages/Report';
+import { ADMIN_ROUTE, BASKET_ROUTE, SHOP_ROUTE, LOGIN_ROUTE, REGISTRATION_ROUTE, DEVICE_ROUTE, REPORT_ROUTE} from './utils/const';
 
 export const authRoutes = [
     
-    {
-        path: BASKET_ROUTE,
-        Component: Basket
-    },
+
 ];
 
 export const publicRoutes = [
@@ -33,5 +31,13 @@ export const publicRoutes = [
     {
         path: ADMIN_ROUTE,
         Component: Admin
+    },
+    {
+        path: BASKET_ROUTE,
+        Component: Basket
+    },
+    {
+        path: REPORT_ROUTE,
+        Component: Report
     },
 ];
